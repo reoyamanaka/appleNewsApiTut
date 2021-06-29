@@ -4,6 +4,7 @@ import requests
 import sys
 from datetime import datetime
 import hashlib # for taking variable length of bytes and converting it into a fixed length sequence
+from pprint import pprint
 
 
 class PublisherAPI:
@@ -28,7 +29,7 @@ class PublisherAPI:
         message = canonical_request
         secret = self.key_secret.encode("utf-8")
 
-        signature = base64.ba64encode(hmac.new(key_bytes, message,digestmod=hashlib.sha256).digest()).decode("utf-8")
+        signature = base64.b64encode(hmac.new(key_bytes, message,digestmod=hashlib.sha256).digest()).decode("utf-8")
         return signature
 
     def read_channel(self):
@@ -61,5 +62,5 @@ if __name__ == "__main__":
 
     response = publisherAPI.main()
 
-    print(response.status_code)
-    print(response.text)
+    pprint(response.status_code)
+    pprint(response.text)
